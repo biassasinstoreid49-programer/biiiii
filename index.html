@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Ilusi Keamanan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: radial-gradient(circle at center, #0a0f1e 0%, #000000 100%);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(10, 20, 30, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #00ffcc;
+            box-shadow: 0 0 30px rgba(0,255,200,0.3);
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #00ffcc;
+            box-shadow: 0 0 20px #00ffcc;
+            margin-bottom: 20px;
+        }
+        .message-box p {
+            margin: 15px 0;
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        .message-box p:nth-child(1) { animation-delay: 0.2s; }
+        .message-box p:nth-child(2) { animation-delay: 0.6s; }
+        .message-box p:nth-child(3) { animation-delay: 1.0s; }
+        .message-box p:nth-child(4) { animation-delay: 1.4s; }
+        .message-box p:nth-child(5) { animation-delay: 1.8s; }
+        .message-box p:nth-child(6) { animation-delay: 2.2s; }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .line1::before {
+            content: ">";
+            color: #ff3366;
+            animation: blink 1s step-end infinite;
+            margin-right: 8px;
+        }
+        @keyframes blink {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        button {
+            background: none;
+            border: 1.5px solid #00ffcc;
+            color: #00ffcc;
+            padding: 10px 20px;
+            font-family: monospace;
+            font-size: 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #00ffcc22;
+            box-shadow: 0 0 12px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- GAMBAR dari Catbox -->
+    <img src="https://files.catbox.moe/e3cxtd.jpg" class="profile-pic" alt="Foto Profil">
+
+    <div class="message-box">
+        <p class="line1">Keamanan kalian cuma ilusi</p>
+        <p>Kami masuk dan tanpa suara, keluar tanpa jejak</p>
+        <p>Bukan karena kami hebat...</p>
+        <p>Tapi Karena Kalian terlalu percaya diri</p>
+        <p>Bahwa Website Kalian Aman</p>
+        <p>Jika menggunakan Base64 sebagai Pelindung</p>
+    </div>
+
+    <!-- AUDIO dari Catbox (direct link, lebih stabil) -->
+    <audio id="bgAudio" loop>
+        <source src="https://files.catbox.moe/h8lcpp.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="audioControl" style="display: none;">
+        <button id="playPauseBtn">🔊 Putar Musik</button>
+    </div>
+</div>
+
+<script>
+    const audio = document.getElementById('bgAudio');
+    const controlDiv = document.getElementById('audioControl');
+    const btn = document.getElementById('playPauseBtn');
+
+    // Coba putar otomatis
+    let playPromise = audio.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            if(btn) btn.textContent = "⏸ Jeda Musik";
+        }).catch(() => {
+            // Autoplay diblokir browser, tampilkan tombol manual
+            controlDiv.style.display = "block";
+        });
+    }
+
+    // Tombol manual play/pause
+    if(btn) {
+        btn.addEventListener('click', () => {
+            if(audio.paused) {
+                audio.play();
+                btn.textContent = "⏸ Jeda Musik";
+            } else {
+                audio.pause();
+                btn.textContent = "🔊 Putar Musik";
+            }
+        });
+    }
+</script>
+</body>
+</html>
